@@ -48,9 +48,9 @@ Essential a context is now bound to a set of urls and database name meaning Rave
 
         var getUsers = await repo.GetAll<User>();   // simple get all
   
-      // both get and get all have support the same params
+        // both get and get all have support the same params
         var getUsers = await repo.GetAll<User,string>(where:f=> f.CreatedAt < DateTime.Now.AddDays(-55),projection:f=> f.Email , orderBy:f=> f.CreatedAt,orderByDescending:true, includeSoftDelete: true  ); 
-// full possiblities with projections order bys and ability to include soft deletes
+       // full possiblities with projections order bys and ability to include soft deletes
   
   ```
   
@@ -60,7 +60,7 @@ Essential a context is now bound to a set of urls and database name meaning Rave
             var user = await repo.Get<User>(f => f.Email == email);
             user.Password = newPassword;
             await repo.Update(user);                 
-              // there is also a update many if you have a collection
+            // there is also a update many if you have a collection
   ```
   
   
