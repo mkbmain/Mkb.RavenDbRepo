@@ -12,16 +12,16 @@ namespace Mkb.RavenDbRepo.Async
     {
         protected readonly IDocumentStore _store;
 
-        public RavenRepoAsyncBase(RavenConfig ravenConfig)
+        public RavenRepoAsyncBase(RavenDbConfig ravenDbConfig)
         {
             var store = new DocumentStore
             {
-                Urls = ravenConfig.Urls,
-                Database = ravenConfig.DataBase
+                Urls = ravenDbConfig.Urls,
+                Database = ravenDbConfig.DataBase
             };
             _store = store.Initialize();
         }
-        
+
 
         protected Task<Tout> GenericGetQueryAsync<TEntity, Tout>(Func<IRavenQueryable<TEntity>, Task<Tout>> action, Expression<Func<TEntity, bool>> where = null,
             Expression<Func<TEntity, object>> orderBy = null,
@@ -39,7 +39,7 @@ namespace Mkb.RavenDbRepo.Async
 
                 if (!returnDeleted)
                 {
-                    set = set.Where(f => !f.DeletedAt.HasValue);
+                    set = set.Where(ravenEntity => !ravenEntity.DeletedAt.HasValue);
                 }
 
                 if (orderBy != null)

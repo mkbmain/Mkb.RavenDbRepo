@@ -1,8 +1,8 @@
 namespace Mkb.RavenDbRepo
 {
-    public class RavenConfig
+    public class RavenDbConfig
     {
-        public RavenConfig(string[] urls, string dataBase)
+        public RavenDbConfig(string[] urls, string dataBase)
         {
             DataBase = dataBase;
             Urls = urls;

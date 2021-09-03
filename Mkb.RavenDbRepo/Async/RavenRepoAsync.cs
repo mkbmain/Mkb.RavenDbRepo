@@ -10,7 +10,7 @@ namespace Mkb.RavenDbRepo.Async
 {
     public class RavenRepoAsync<T> : RavenRepoAsyncBase, IRavenRepoAsync<T> where T : RavenEntity
     {
-        public RavenRepoAsync(RavenConfig ravenConfig) : base(ravenConfig)
+        public RavenRepoAsync(RavenDbConfig ravenDbConfig) : base(ravenDbConfig)
         {
         }
 

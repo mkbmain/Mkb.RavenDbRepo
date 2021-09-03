@@ -28,25 +28,23 @@ namespace RavenDb
 
         static async Task Main(string[] args)
         {
-            var repo = new RavenRepoAsync<MyContext>(new RavenConfig(new[] { "http://localhost:8080" }, "Auth"));
+            var repo = new RavenRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
             var users = Enumerable.Range(1, 100).Select(f => new User
             {
                 Email = $"Test{f}@gmail.com",
                 Password = $"fewgw{f}"
             }).ToArray();
+
+            await repo.Add(users.FirstOrDefault());
+
             await repo.AddMany(users);
 
 
-            var getUsers = await repo.GetAll<User>();
+            var getUsers = await repo.GetAll<User>(f=> f.CreatedAt < DateTime.Now.AddDays(-55));
             foreach (var t in getUsers)
             {
                 t.Email = "ToDelete";
             }
-
-            var getUser1 = await repo.Get<User>(null, t => t.CreatedAt, true);
-
-            await repo.UpdateMany(getUsers);
-
 
             await repo.DeleteMany(getUsers);
 
