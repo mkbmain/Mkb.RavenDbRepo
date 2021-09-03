@@ -22,7 +22,7 @@ by creating a context in this way and allowing your entites to inherit from it w
 
 
 ```
-        var repo = new RavenRepoAsync<MyContext>(new RavenConfig(new[] { "http://localhost:8080" }, "Auth")); // or setup via DI
+     var repo = new RavenRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth")); // or setup via DI
 ```
 Essential a context is now bound to a set of urls and database name meaning RavenRepoAsync<MyContext> can also have RavenRepoAsync<MyContext2> etc.. and entities will not be added to the wrong by mistake. (this is handled at repo level)
 
