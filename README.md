@@ -51,10 +51,10 @@ Essential a context is now bound to a set of urls and database name meaning Rave
         // both get and get all have support the same params
         var getUsers = await repo.GetAll<User,string>(
                             where:f=> f.CreatedAt < DateTime.Now.AddDays(-55),
-                            projection:f=> f.Email , 
+                            projection:f=> f.Email, 
                             orderBy:f=> f.CreatedAt,
                             orderByDescending:true, 
-                            includeSoftDelete: true  ); 
+                            includeSoftDelete: true); 
 
        // full possiblities with projections order bys and ability to include soft deletes
   
