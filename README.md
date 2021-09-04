@@ -75,12 +75,12 @@ Essential a context is now bound to a set of urls and database name meaning Rave
   ```
   
             var oldUser = await repo.GetAll<User>(f=> f.CreatedAt < DateTime.Now.AddDays(-155));
-            await repo.DeleteMany(getUsers);            
+            await repo.DeleteMany(oldUser);            
             // will soft delete updating a deleted at value in the RavenEntity to be marked as removed
                                                                                                 
             // of course there is a delete singular and hard delete singular
                                                                                                 
-            await repo.HardDeleteMany(getUsers);      
+            await repo.HardDeleteMany(oldUser);      
             // will hard delete removing this record from the db
   ```
   
