@@ -17,13 +17,21 @@ namespace Mkb.RavenDbRepo.Async
         public Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return Get(where, f => f, orderBy: orderBy, orderByDescending: orderByDescending, includeSoftDelete: includeSoftDelete);
+            return Get(where: where,
+                projection: f => f,
+                orderBy: orderBy,
+                orderByDescending: orderByDescending,
+                includeSoftDelete: includeSoftDelete);
         }
 
         public Task<TOut> Get<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return GenericGetQueryAsync(async f => await f.Select(projection).FirstOrDefaultAsync(), where: where, orderBy: orderBy, orderByDescending: orderByDescending,
+            return GenericGetQueryAsync(
+                action: async f => await f.Select(projection).FirstOrDefaultAsync(),
+                where: where,
+                orderBy: orderBy,
+                orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
         }
 
@@ -36,7 +44,10 @@ namespace Mkb.RavenDbRepo.Async
         public Task<List<TOut>> GetAll<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return GenericGetQueryAsync(async f => await f.Select(projection).ToListAsync(), where: where, orderBy: orderBy, orderByDescending: orderByDescending,
+            return GenericGetQueryAsync(async f => await f.Select(projection).ToListAsync(),
+                where: where,
+                orderBy: orderBy,
+                orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
         }
 
