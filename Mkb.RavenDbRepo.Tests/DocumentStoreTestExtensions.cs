@@ -7,7 +7,7 @@ using Raven.Client.Documents;
 
 namespace Mkb.RavenDbRepo.Tests
 {
-    public static class DbFuncs
+    public static class DocumentStoreTestExtensions
     {
         private static Entity[] GenerateEntities(int amount) => Enumerable.Range(1, amount).Select(t => new Entity
         {
