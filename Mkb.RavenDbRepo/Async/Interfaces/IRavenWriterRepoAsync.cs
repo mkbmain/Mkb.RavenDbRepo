@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Mkb.RavenDbRepo.Async.Interfaces
 {
-    public interface IRavenWriterRepoAsync< T> where T : RavenEntity
+    public interface IRavenWriterRepoAsync<in T> where T : RavenEntity
     {
         Task Update<TEntity>(TEntity entity) where TEntity : T;
 
@@ -11,6 +11,6 @@ namespace Mkb.RavenDbRepo.Async.Interfaces
 
         Task Add<TEntity>(TEntity entity) where TEntity : T;
 
-        Task AddMany<TEntity>(IEnumerable<TEntity> entitys) where TEntity : T;
+        Task AddMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T;
     }
 }

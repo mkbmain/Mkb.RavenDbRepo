@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mkb.RavenDbRepo.Async.Interfaces
 {
-    public interface IRavenReaderRepoAsync< T> where T : RavenEntity
+    public interface IRavenReaderRepoAsync<in T> where T : RavenEntity
     {
         Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T;

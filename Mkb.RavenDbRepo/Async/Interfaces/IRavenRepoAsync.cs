@@ -1,6 +1,6 @@
 namespace Mkb.RavenDbRepo.Async.Interfaces
 {
-    public interface IRavenRepoAsync< T> : IRavenReaderRepoAsync<T>, IRavenWriterRepoAsync<T>, IRavenDeleteRepoAsync<T> where T : RavenEntity
+    public interface IRavenRepoAsync<in T> : IRavenReaderRepoAsync<T>, IRavenWriterRepoAsync<T>, IRavenDeleteRepoAsync<T> where T : RavenEntity
     {
     }
 }

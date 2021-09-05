@@ -70,9 +70,9 @@ namespace Mkb.RavenDbRepo.Async
             return AddMany(new[] { entity });
         }
 
-        public Task AddMany<TEntity>(IEnumerable<TEntity> entitys) where TEntity : T
+        public Task AddMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
         {
-            return ExecuteAsync(AsyncEnumerableWithSave(entitys, async (session, item) => { await session.StoreAsync(item); }));
+            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) => { await session.StoreAsync(item); }));
         }
 
         public Task Delete<TEntity>(TEntity entity) where TEntity : T
@@ -80,9 +80,9 @@ namespace Mkb.RavenDbRepo.Async
             return DeleteMany(new[] { entity });
         }
 
-        public Task DeleteMany<TEntity>(IEnumerable<TEntity> entitys) where TEntity : T
+        public Task DeleteMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
         {
-            return ExecuteAsync(AsyncEnumerableWithSave(entitys, async (session, item) =>
+            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) =>
             {
                 item.DeletedAt = DateTime.UtcNow;
                 await session.StoreAsync(item);
@@ -94,9 +94,9 @@ namespace Mkb.RavenDbRepo.Async
             return HardDeleteMany(new[] { entity });
         }
 
-        public Task HardDeleteMany<TEntity>(IEnumerable<TEntity> entitys) where TEntity : T
+        public Task HardDeleteMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
         {
-            return ExecuteAsync(AsyncEnumerableWithSave(entitys, async (session, item) => { session.Delete(item.Id); }));
+            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) => { session.Delete(item.Id); }));
         }
     }
 }
