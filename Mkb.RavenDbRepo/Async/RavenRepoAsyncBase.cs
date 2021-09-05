@@ -50,7 +50,7 @@ namespace Mkb.RavenDbRepo.Async
                     await action(session, item);
                 }
 
-                await session.SaveChangesAsync();
+                await session.SaveChangesAsync(); // we need to await and can't return task as the using will close at end of method block
                 return true;
             };
 
