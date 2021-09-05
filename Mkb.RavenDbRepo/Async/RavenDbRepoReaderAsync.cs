@@ -8,14 +8,23 @@ using Raven.Client.Documents.Linq;
 
 namespace Mkb.RavenDbRepo.Async
 {
-    public class RavenRepoAsync<T> : RavenRepoAsyncBase, IRavenRepoAsync<T> where T : RavenEntity
+    public class RavenDbRepoReaderAsync<T> : IRavenReaderRepoAsync<T> where T : RavenEntity
     {
-        public RavenRepoAsync(RavenDbConfig ravenDbConfig) : base(ravenDbConfig)
+        protected readonly IDocumentStore Store;
+
+        public RavenDbRepoReaderAsync(RavenDbConfig ravenDbConfig)
         {
+            var store = new DocumentStore
+            {
+                Urls = ravenDbConfig.Urls,
+                Database = ravenDbConfig.DataBase
+            };
+            Store = store.Initialize();
         }
 
-        public RavenRepoAsync(IDocumentStore documentStore) : base(documentStore: documentStore)
+        public RavenDbRepoReaderAsync(IDocumentStore documentStore)
         {
+            Store = documentStore.Initialize();
         }
 
         public Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
@@ -31,7 +40,7 @@ namespace Mkb.RavenDbRepo.Async
         public Task<TOut> Get<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return GenericGetQueryAsync(
+            return InternalAsyncExecutors.GenericGetQueryAsync(Store,
                 action: async f => await f.Select(projection).FirstOrDefaultAsync(),
                 where: where,
                 orderBy: orderBy,
@@ -48,55 +57,11 @@ namespace Mkb.RavenDbRepo.Async
         public Task<List<TOut>> GetAll<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return GenericGetQueryAsync(async f => await f.Select(projection).ToListAsync(),
+            return InternalAsyncExecutors.GenericGetQueryAsync(Store, async f => await f.Select(projection).ToListAsync(),
                 where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
-        }
-
-        public Task Update<TEntity>(TEntity entity) where TEntity : T
-        {
-            return UpdateMany(new[] { entity });
-        }
-
-        public Task UpdateMany<TEntity>(IEnumerable<TEntity> entity) where TEntity : T
-        {
-            return AddMany(entity);
-        }
-
-        public Task Add<TEntity>(TEntity entity) where TEntity : T
-        {
-            return AddMany(new[] { entity });
-        }
-
-        public Task AddMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
-        {
-            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) => { await session.StoreAsync(item); }));
-        }
-
-        public Task Delete<TEntity>(TEntity entity) where TEntity : T
-        {
-            return DeleteMany(new[] { entity });
-        }
-
-        public Task DeleteMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
-        {
-            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) =>
-            {
-                item.DeletedAt = DateTime.UtcNow;
-                await session.StoreAsync(item);
-            }));
-        }
-
-        public Task HardDelete<TEntity>(TEntity entity) where TEntity : T
-        {
-            return HardDeleteMany(new[] { entity });
-        }
-
-        public Task HardDeleteMany<TEntity>(IEnumerable<TEntity> entities) where TEntity : T
-        {
-            return ExecuteAsync(AsyncEnumerableWithSave(entities, async (session, item) => { session.Delete(item.Id); }));
         }
     }
 }

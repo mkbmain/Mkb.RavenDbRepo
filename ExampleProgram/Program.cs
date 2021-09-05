@@ -27,7 +27,7 @@ namespace ExampleProgram
         static async Task Main(string[] args)
         {
 
-            var repo = new RavenRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
+            var repo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
             var users = Enumerable.Range(1, 100).Select(f => new User
             {
                 Email = $"Test{f}@gmail.com",

@@ -8,7 +8,7 @@ namespace Mkb.RavenDbRepo
             Urls = urls;
         }
 
-        public string[] Urls { get; set; }
-        public string DataBase { get; set; }
+        public string[] Urls { get; }
+        public string DataBase { get; }
     }
 }

@@ -13,10 +13,10 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.RavenDeleteRepoAsync
         public async Task Ensure_we_can_HardDelete_Multiple_items()
         {
             var store = GetDocumentStore();
-            var entity = await store.CreateEntity();
+            var entity = await store.CreateManyEntities(5);
 
             IRavenDeleteRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
-            await repo.HardDelete(entity);
+            await repo.HardDeleteMany(entity);
 
             var item = await store.GetAll<Entity>();
 

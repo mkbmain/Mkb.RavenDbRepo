@@ -8,7 +8,12 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests
     {
         public static IRavenRepoAsync<T> Build<T>(IDocumentStore documentStore) where T : RavenEntity
         {
-            return new RavenRepoAsync<T>(documentStore);
+            return new RavenDbDbRepoAsync<T>(documentStore);
+        }
+
+        public static IRavenReaderRepoAsync<T> BuildReaderRepoAsync<T>(IDocumentStore documentStore) where T : RavenEntity
+        {
+            return new RavenDbRepoReaderAsync<T>(documentStore);
         }
     }
 }

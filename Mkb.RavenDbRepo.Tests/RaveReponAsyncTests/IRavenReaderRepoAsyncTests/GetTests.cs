@@ -17,7 +17,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             var entities = await store.CreateManyEntities(5);
             var thirdItem = entities.Skip(2).First();
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity>(f => f.Id == thirdItem.Id);
 
@@ -33,7 +33,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             thirdItem.Dob = DateTime.Now.AddYears(-55);
             await store.AddMany(new[] { thirdItem });
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity>(null, f => f.Dob);
 
@@ -49,7 +49,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             thirdItem.Dob = DateTime.Now.AddYears(55);
             await store.AddMany(new[] { thirdItem });
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity>(null, f => f.Dob, true);
 
@@ -65,7 +65,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             thirdItem.DeletedAt = DateTime.Now;
             await store.AddMany(new[] { thirdItem });
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity>(f => f.Id == thirdItem.Id, includeSoftDelete: true);
 
@@ -79,7 +79,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             var entities = await store.CreateManyEntities(5);
             var thirdItem = entities.Skip(2).First();
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity, DateTime>(f => f.Id == thirdItem.Id, f => f.Dob);
 
@@ -95,7 +95,7 @@ namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.IRavenReaderRepoAsyncTests
             thirdItem.DeletedAt = DateTime.Now;
             await store.AddMany(new[] { thirdItem });
 
-            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
+            IRavenReaderRepoAsync<Entity> repo = RavenRepoAsyncFactory.BuildReaderRepoAsync<Entity>(store);
 
             var item = await repo.Get<Entity>(f => f.Id == thirdItem.Id);
 
