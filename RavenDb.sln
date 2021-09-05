@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RavenDb", "RavenDb\RavenDb.csproj", "{645753EF-2A6B-4AC7-9C5C-266345D4C182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleProgram", "ExampleProgram\ExampleProgram.csproj", "{645753EF-2A6B-4AC7-9C5C-266345D4C182}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mkb.RavenDbRepo", "Mkb.RavenDbRepo\Mkb.RavenDbRepo.csproj", "{D12232CE-68F3-436D-A652-EBBC9E4A2667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mkb.RavenDbRepo.Tests", "Mkb.RavenDbRepo.Tests\Mkb.RavenDbRepo.Tests.csproj", "{DA7BE02E-0262-420E-87F9-6A8B6739E618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{D12232CE-68F3-436D-A652-EBBC9E4A2667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D12232CE-68F3-436D-A652-EBBC9E4A2667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D12232CE-68F3-436D-A652-EBBC9E4A2667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7BE02E-0262-420E-87F9-6A8B6739E618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7BE02E-0262-420E-87F9-6A8B6739E618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7BE02E-0262-420E-87F9-6A8B6739E618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7BE02E-0262-420E-87F9-6A8B6739E618}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

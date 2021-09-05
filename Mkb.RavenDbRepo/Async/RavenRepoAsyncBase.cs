@@ -22,6 +22,12 @@ namespace Mkb.RavenDbRepo.Async
             _store = store.Initialize();
         }
 
+        public RavenRepoAsyncBase(IDocumentStore documentStore)
+        {
+
+            _store = documentStore.Initialize();
+        }
+
         protected Task<Tout> GenericGetQueryAsync<TEntity, Tout>(Func<IRavenQueryable<TEntity>, Task<Tout>> action, Expression<Func<TEntity, bool>> where = null,
             Expression<Func<TEntity, object>> orderBy = null,
             bool orderByDescending = false,

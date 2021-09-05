@@ -14,6 +14,10 @@ namespace Mkb.RavenDbRepo.Async
         {
         }
 
+        public RavenRepoAsync(IDocumentStore documentStore) : base(documentStore: documentStore)
+        {
+        }
+
         public Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
