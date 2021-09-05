@@ -22,7 +22,6 @@ namespace Mkb.RavenDbRepo.Async
             _store = store.Initialize();
         }
 
-
         protected Task<Tout> GenericGetQueryAsync<TEntity, Tout>(Func<IRavenQueryable<TEntity>, Task<Tout>> action, Expression<Func<TEntity, bool>> where = null,
             Expression<Func<TEntity, object>> orderBy = null,
             bool orderByDescending = false,
@@ -50,7 +49,6 @@ namespace Mkb.RavenDbRepo.Async
                 return await action(set);
             });
         }
-
 
         protected static Func<IAsyncDocumentSession, Task<bool>> AsyncEnumerableWithSave<TEntity>(IEnumerable<TEntity> items, Func<IAsyncDocumentSession, TEntity, Task> action) =>
             async session =>
