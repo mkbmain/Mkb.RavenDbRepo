@@ -1,4 +1,4 @@
-namespace Mkb.RavenDbRepo
+namespace Mkb.RavenDbRepo.Configs
 {
     public class RavenDbConfig
     {

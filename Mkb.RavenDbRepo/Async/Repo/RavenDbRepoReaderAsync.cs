@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Mkb.RavenDbRepo.Async.Interfaces;
+using Mkb.RavenDbRepo.Configs;
+using Mkb.RavenDbRepo.Entities;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Linq;
 
-namespace Mkb.RavenDbRepo.Async
+namespace Mkb.RavenDbRepo.Async.Repo
 {
     public class RavenDbRepoReaderAsync<T> : IRavenReaderRepoAsync<T> where T : RavenEntity
     {
@@ -30,7 +32,7 @@ namespace Mkb.RavenDbRepo.Async
         public Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return Get(where: where,
+            return Get(@where: where,
                 projection: f => f,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
@@ -42,7 +44,7 @@ namespace Mkb.RavenDbRepo.Async
         {
             return InternalAsyncExecutors.GenericGetQueryAsync(Store,
                 action: async f => await f.Select(projection).FirstOrDefaultAsync(),
-                where: where,
+                @where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
@@ -58,7 +60,7 @@ namespace Mkb.RavenDbRepo.Async
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
             return InternalAsyncExecutors.GenericGetQueryAsync(Store, async f => await f.Select(projection).ToListAsync(),
-                where: where,
+                @where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);

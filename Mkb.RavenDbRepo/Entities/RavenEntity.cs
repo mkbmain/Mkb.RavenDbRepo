@@ -1,6 +1,6 @@
 using System;
 
-namespace Mkb.RavenDbRepo
+namespace Mkb.RavenDbRepo.Entities
 {
     public abstract class RavenEntity
     {

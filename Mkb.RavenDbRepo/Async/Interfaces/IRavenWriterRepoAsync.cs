@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mkb.RavenDbRepo.Entities;
 
 namespace Mkb.RavenDbRepo.Async.Interfaces
 {

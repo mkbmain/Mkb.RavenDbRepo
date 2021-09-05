@@ -3,6 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mkb.RavenDbRepo;
 using Mkb.RavenDbRepo.Async;
+using Mkb.RavenDbRepo.Async.Repo;
+using Mkb.RavenDbRepo.Configs;
+using Mkb.RavenDbRepo.Entities;
 
 namespace ExampleProgram
 {
@@ -26,6 +29,7 @@ namespace ExampleProgram
 
         static async Task Main(string[] args)
         {
+            var readOnlyRepo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
 
             var repo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
             var users = Enumerable.Range(1, 100).Select(f => new User
@@ -39,7 +43,7 @@ namespace ExampleProgram
             await repo.AddMany(users);
 
 
-            var getUsers = await repo.GetAll<User>(f=> f.CreatedAt < DateTime.Now.AddDays(-55));
+            var getUsers = await readOnlyRepo.GetAll<User>(null);
             foreach (var t in getUsers)
             {
                 t.Email = "ToDelete";

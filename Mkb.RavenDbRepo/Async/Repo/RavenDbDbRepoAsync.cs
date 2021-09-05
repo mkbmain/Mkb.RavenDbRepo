@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Mkb.RavenDbRepo.Async.Interfaces;
+using Mkb.RavenDbRepo.Configs;
+using Mkb.RavenDbRepo.Entities;
 using Raven.Client.Documents;
-using Raven.Client.Documents.Linq;
 
-namespace Mkb.RavenDbRepo.Async
+namespace Mkb.RavenDbRepo.Async.Repo
 {
     public class RavenDbDbRepoAsync<T> : RavenDbRepoReaderAsync<T>, IRavenRepoAsync<T> where T : RavenEntity
     {

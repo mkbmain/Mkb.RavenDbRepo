@@ -1,5 +1,7 @@
 using Mkb.RavenDbRepo.Async;
 using Mkb.RavenDbRepo.Async.Interfaces;
+using Mkb.RavenDbRepo.Async.Repo;
+using Mkb.RavenDbRepo.Entities;
 using Raven.Client.Documents;
 
 namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests

@@ -1,4 +1,5 @@
 using System;
+using Mkb.RavenDbRepo.Entities;
 
 namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests
 {
