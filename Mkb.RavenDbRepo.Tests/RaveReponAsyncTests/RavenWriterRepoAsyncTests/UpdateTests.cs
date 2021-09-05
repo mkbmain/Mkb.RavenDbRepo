@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Mkb.RavenDbRepo.Async.Interfaces;
 using Raven.TestDriver;

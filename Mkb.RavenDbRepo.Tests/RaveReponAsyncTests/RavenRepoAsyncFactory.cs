@@ -1,4 +1,3 @@
-using Mkb.RavenDbRepo.Async;
 using Mkb.RavenDbRepo.Async.Interfaces;
 using Mkb.RavenDbRepo.Async.Repo;
 using Mkb.RavenDbRepo.Entities;

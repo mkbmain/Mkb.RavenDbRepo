@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Mkb.RavenDbRepo;
-using Mkb.RavenDbRepo.Async;
 using Mkb.RavenDbRepo.Async.Repo;
 using Mkb.RavenDbRepo.Configs;
 using Mkb.RavenDbRepo.Entities;
