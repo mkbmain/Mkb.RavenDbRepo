@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mkb.RavenDbRepo.Tests.RaveReponAsyncTests;
+using Mkb.RavenDbRepo.Tests.RavenDbRepoAsyncTests;
 using Raven.Client.Documents;
 
 namespace Mkb.RavenDbRepo.Tests

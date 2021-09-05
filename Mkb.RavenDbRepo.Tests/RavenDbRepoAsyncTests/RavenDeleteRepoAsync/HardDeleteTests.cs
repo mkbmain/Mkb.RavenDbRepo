@@ -4,18 +4,18 @@ using Raven.TestDriver;
 using Shouldly;
 using Xunit;
 
-namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.RavenDeleteRepoAsync
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoAsyncTests.RavenDeleteRepoAsync
 {
-    public class HardDeleteManyTests : RavenTestDriver
+    public class HardDeleteTests : RavenTestDriver
     {
         [Fact]
-        public async Task Ensure_we_can_HardDelete_Multiple_items()
+        public async Task Ensure_we_can_HardDelete_a_item()
         {
             var store = GetDocumentStore();
-            var entity = await store.CreateManyEntities(5);
+            var entity = await store.CreateEntity();
 
             IRavenDeleteRepoAsync<Entity> repo = RavenRepoAsyncFactory.Build<Entity>(store);
-            await repo.HardDeleteMany(entity);
+            await repo.HardDelete(entity);
 
             var item = await store.GetAll<Entity>();
 

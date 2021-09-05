@@ -3,7 +3,7 @@ using Mkb.RavenDbRepo.Async.Repo;
 using Mkb.RavenDbRepo.Entities;
 using Raven.Client.Documents;
 
-namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoAsyncTests
 {
     public static class RavenRepoAsyncFactory
     {

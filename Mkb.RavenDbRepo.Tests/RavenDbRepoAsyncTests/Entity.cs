@@ -1,7 +1,7 @@
 using System;
 using Mkb.RavenDbRepo.Entities;
 
-namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoAsyncTests
 {
     public class Entity : RavenEntity
     {

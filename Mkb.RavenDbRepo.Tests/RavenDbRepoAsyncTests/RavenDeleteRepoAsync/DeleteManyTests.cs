@@ -5,7 +5,7 @@ using Raven.TestDriver;
 using Shouldly;
 using Xunit;
 
-namespace Mkb.RavenDbRepo.Tests.RaveReponAsyncTests.RavenDeleteRepoAsync
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoAsyncTests.RavenDeleteRepoAsync
 {
     public class DeleteManyTests : RavenTestDriver
     {
