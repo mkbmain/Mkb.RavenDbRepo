@@ -24,7 +24,6 @@ namespace Mkb.RavenDbRepo.Async
 
         public RavenRepoAsyncBase(IDocumentStore documentStore)
         {
-
             _store = documentStore.Initialize();
         }
 
@@ -37,22 +36,9 @@ namespace Mkb.RavenDbRepo.Async
             return ExecuteAsync(async f =>
             {
                 var set = f.Query<TEntity>();
-                if (where != null)
-                {
-                    set = set.Where(where);
-                }
-
-                if (!returnDeleted)
-                {
-                    set = set.Where(ravenEntity => !ravenEntity.DeletedAt.HasValue);
-                }
-
-                if (orderBy != null)
-                {
-                    set = orderByDescending ? set.OrderByDescending(orderBy) : set.OrderBy(orderBy);
-                }
-
-                return await action(set);
+                set = where != null ? set.Where(where) : set;
+                set = returnDeleted ? set : set.Where(ravenEntity => !ravenEntity.DeletedAt.HasValue);
+                return orderBy == null ? await action(set) : await action(orderByDescending ? set.OrderByDescending(orderBy) : set.OrderBy(orderBy));
             });
         }
 
