@@ -22,7 +22,7 @@ by creating a context in this way and allowing your entites to inherit from it w
 
 
 ```
-        var readOnlyRepo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth")); // with no ability to add\update\delete
+        var readOnlyRepo = new RavenDbRepoReaderAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth")); // with no ability to add\update\delete
 
         var repo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
        // or setup via DI
