@@ -1,5 +1,5 @@
 # Mkb.RavenDbRepo
-First draft Add test and check it works  next tests:) 
+First draft :) 
 
 ## Suggested Use
 
