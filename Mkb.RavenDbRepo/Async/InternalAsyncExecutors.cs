@@ -11,13 +11,14 @@ namespace Mkb.RavenDbRepo.Async
 {
     internal static class InternalAsyncExecutors
     {
-        internal static Task<TOut> GenericGetQueryAsync<TEntity, TOut>(IDocumentStore store,Func<IRavenQueryable<TEntity>, Task<TOut>> action, Expression<Func<TEntity, bool>> where = null,
+        internal static Task<TOut> GenericGetQueryAsync<TEntity, TOut>(IDocumentStore store, Func<IRavenQueryable<TEntity>, Task<TOut>> action,
+            Expression<Func<TEntity, bool>> where = null,
             Expression<Func<TEntity, object>> orderBy = null,
             bool orderByDescending = false,
             bool returnDeleted = false)
             where TEntity : RavenEntity
         {
-            return ExecuteAsync(store,async f =>
+            return ExecuteAsync(store, async f =>
             {
                 var set = f.Query<TEntity>();
                 set = where != null ? set.Where(where) : set;
@@ -38,7 +39,7 @@ namespace Mkb.RavenDbRepo.Async
                 return true;
             };
 
-        internal static async Task<T> ExecuteAsync<T>(IDocumentStore store,Func<IAsyncDocumentSession, Task<T>> action)
+        internal static async Task<T> ExecuteAsync<T>(IDocumentStore store, Func<IAsyncDocumentSession, Task<T>> action)
         {
             using var session = store.OpenAsyncSession();
             return (await action(session)); // we need to await and can't return task as the using will close at end of method block

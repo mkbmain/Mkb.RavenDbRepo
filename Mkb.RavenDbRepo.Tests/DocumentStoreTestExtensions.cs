@@ -9,25 +9,27 @@ namespace Mkb.RavenDbRepo.Tests
 {
     public static class DocumentStoreTestExtensions
     {
-        private static Entity[] GenerateEntities(int amount) => Enumerable.Range(1, amount).Select(t => new Entity
-        {
-            Name = t.ToString(),
-            Email = t.ToString(),
-            Dob = DateTime.Now.AddYears(-t)
-        }).ToArray();
+        private static Entity[] GenerateEntities(int amount) => Enumerable.Range(1, amount)
+            .Select(t => new Entity
+            {
+                Name = t.ToString(),
+                Email = t.ToString(),
+                Dob = DateTime.Now.AddYears(-t)
+            }).ToArray();
 
-        public static async Task<Entity[]> CreateManyEntities(this IDocumentStore documentStore,int amount =10,bool add = true)
+        public static async Task<Entity[]> CreateManyEntities(this IDocumentStore documentStore, int amount = 10, bool add = true)
         {
             var items = GenerateEntities(amount);
-            if(!add){return items;}
+            if (!add) { return items; }
             await documentStore.AddMany(items);
             return items;
         }
-        public static async Task<Entity> CreateEntity(this IDocumentStore documentStore,bool add = true)
+
+        public static async Task<Entity> CreateEntity(this IDocumentStore documentStore, bool add = true)
         {
             var items = GenerateEntities(1).First();
-            if(!add){return items;}
-            await documentStore.AddMany(new [] {items});
+            if (!add) { return items; }
+            await documentStore.AddMany(new[] { items });
             return items;
         }
 
