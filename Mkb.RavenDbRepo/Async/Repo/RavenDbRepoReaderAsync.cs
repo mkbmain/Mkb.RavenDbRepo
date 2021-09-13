@@ -42,7 +42,7 @@ namespace Mkb.RavenDbRepo.Async.Repo
         public Task<TOut> Get<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return InternalAsyncExecutors.GenericGetQueryAsync(Store,
+            return GenericGetQueryAsync(Store,
                 action: async f => await f.Select(projection).FirstOrDefaultAsync(),
                 @where: where,
                 orderBy: orderBy,
@@ -59,11 +59,27 @@ namespace Mkb.RavenDbRepo.Async.Repo
         public Task<List<TOut>> GetAll<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return InternalAsyncExecutors.GenericGetQueryAsync(Store, async f => await f.Select(projection).ToListAsync(),
+            return GenericGetQueryAsync(Store, async f => await f.Select(projection).ToListAsync(),
                 @where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
+        }
+
+        private static Task<TOut> GenericGetQueryAsync<TEntity, TOut>(IDocumentStore store, Func<IRavenQueryable<TEntity>, Task<TOut>> action,
+            Expression<Func<TEntity, bool>> where = null,
+            Expression<Func<TEntity, object>> orderBy = null,
+            bool orderByDescending = false,
+            bool returnDeleted = false)
+            where TEntity : RavenEntity
+        {
+            return InternalAsyncExecutors.ExecuteAsync(store, async f =>
+            {
+                var set = f.Query<TEntity>();
+                set = where != null ? set.Where(where) : set;
+                set = returnDeleted ? set : set.Where(ravenEntity => !ravenEntity.DeletedAt.HasValue);
+                return orderBy == null ? await action(set) : await action(orderByDescending ? set.OrderByDescending(orderBy) : set.OrderBy(orderBy));
+            });
         }
     }
 }

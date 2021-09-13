@@ -42,7 +42,7 @@ namespace Mkb.RavenDbRepo.Sync.Repo
         public TOut Get<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return InternalExecutors.GenericGetQuery(Store,
+            return GenericGetQuery(Store,
                 action:  f =>  f.Select(projection).FirstOrDefault(),
                 @where: where,
                 orderBy: orderBy,
@@ -59,11 +59,27 @@ namespace Mkb.RavenDbRepo.Sync.Repo
         public List<TOut> GetAll<TEntity, TOut>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TOut>> projection,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
-            return InternalExecutors.GenericGetQuery(Store,  f =>  f.Select(projection).ToList(),
+            return GenericGetQuery(Store,  f =>  f.Select(projection).ToList(),
                 @where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 returnDeleted: includeSoftDelete);
+        }
+
+        private static TOut GenericGetQuery<TEntity, TOut>(IDocumentStore store, Func<IRavenQueryable<TEntity>, TOut> action,
+            Expression<Func<TEntity, bool>> where = null,
+            Expression<Func<TEntity, object>> orderBy = null,
+            bool orderByDescending = false,
+            bool returnDeleted = false)
+            where TEntity : RavenEntity
+        {
+            return InternalExecutors.Execute(store, f =>
+            {
+                var set = f.Query<TEntity>();
+                set = where != null ? set.Where(where) : set;
+                set = returnDeleted ? set : set.Where(ravenEntity => !ravenEntity.DeletedAt.HasValue);
+                return orderBy == null ? action(set) : action(orderByDescending ? set.OrderByDescending(orderBy) : set.OrderBy(orderBy));
+            });
         }
     }
 }
