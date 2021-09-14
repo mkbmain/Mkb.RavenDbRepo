@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
         <Title>Mkb.RavenDbRepo</Title>
         <Authors>Mkb</Authors>
         <PackageProjectUrl>https://github.com/mkbmain/Mkb.RavenDbRepo</PackageProjectUrl>
         <RepositoryUrl>https://github.com/mkbmain/Mkb.RavenDbRepo/tree/V1.0.0</RepositoryUrl>
         <Description>Raven Db Repository full async </Description>
+        <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>

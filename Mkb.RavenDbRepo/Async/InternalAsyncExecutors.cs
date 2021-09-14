@@ -22,8 +22,10 @@ namespace Mkb.RavenDbRepo.Async
 
         internal static async Task<T> ExecuteAsync<T>(IDocumentStore store, Func<IAsyncDocumentSession, Task<T>> action)
         {
-            using var session = store.OpenAsyncSession();
-            return (await action(session)); // we need to await and can't return task as the using will close at end of method block
+            using (var session = store.OpenAsyncSession())
+            {
+                return (await action(session)); // we need to await and can't return task as the using will close at end of method block
+            }
         }
     }
 }

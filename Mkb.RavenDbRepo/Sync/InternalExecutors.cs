@@ -20,8 +20,10 @@ namespace Mkb.RavenDbRepo.Sync
 
         internal static T Execute<T>(IDocumentStore store, Func<IDocumentSession, T> action)
         {
-            using var session = store.OpenSession();
-            return (action(session)); // we need to await and can't return task as the using will close at end of method block
+            using (var session = store.OpenSession())
+            {
+                return (action(session)); // we need to await and can't return task as the using will close at end of method block
+            }
         }
 
         internal static void ExecuteVoid(IDocumentStore store, Action<IDocumentSession> action)
