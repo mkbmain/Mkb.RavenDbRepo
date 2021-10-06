@@ -7,7 +7,7 @@ using Raven.TestDriver;
 using Shouldly;
 using Xunit;
 
-namespace Mkb.RavenDbRepo.Tests.RavenDbRepoTests.IRavenReaderRepoAsyncTests
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoTests.IRavenReaderRepoTests
 {
     public class GetAllTests : RavenTestDriver
     {

@@ -29,6 +29,15 @@ namespace Mkb.RavenDbRepo.Async.Repo
             Store = documentStore.Initialize();
         }
 
+        public Task<bool> Any<TEntity>(Expression<Func<TEntity, bool>> where,bool includeSoftDelete =false) where TEntity : T
+        {
+            return GenericGetQueryAsync(Store, async f => await f.AnyAsync(),
+                @where: where,
+                orderBy: null,
+                orderByDescending: false,
+                returnDeleted: includeSoftDelete);
+        }
+        
         public Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {

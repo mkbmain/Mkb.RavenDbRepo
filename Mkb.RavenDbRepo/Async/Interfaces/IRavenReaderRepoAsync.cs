@@ -8,6 +8,8 @@ namespace Mkb.RavenDbRepo.Async.Interfaces
 {
     public interface IRavenReaderRepoAsync<in T> where T : RavenEntity
     {
+        Task<bool> Any<TEntity>(Expression<Func<TEntity, bool>> where,bool includeSoftDelete =false) where TEntity : T;
+        
         Task<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T;
 

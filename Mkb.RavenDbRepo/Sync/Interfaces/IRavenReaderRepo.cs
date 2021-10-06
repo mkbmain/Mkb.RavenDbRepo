@@ -7,6 +7,8 @@ namespace Mkb.RavenDbRepo.Sync.Interfaces
 {
     public interface IRavenReaderRepo<in T> where T : RavenEntity
     {
+        bool Any<TEntity>(Expression<Func<TEntity, bool>> where,bool includeSoftDelete =false) where TEntity : T;
+        
         TEntity Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T;
 

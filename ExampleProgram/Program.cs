@@ -18,6 +18,12 @@ namespace ExampleProgram
             public string Password { get; set; }
         }
 
+        public class UserRoles : MyContext
+        {
+            public string UserId { get; set; }
+            public string[] RoleIds { get; set; }
+        }
+
         public class Role : MyContext
         {
             public string Name { get; set; }
@@ -26,9 +32,16 @@ namespace ExampleProgram
 
         static async Task Main(string[] args)
         {
-            var readOnlyRepo = new RavenDbRepoReaderAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
+            var readOnlyRepo = new RavenDbRepoReaderAsync<MyContext>(new RavenDbConfig(new[] {"http://localhost:8080"}, "Auth"));
 
-            var repo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] { "http://localhost:8080" }, "Auth"));
+
+            var repo = new RavenDbDbRepoAsync<MyContext>(new RavenDbConfig(new[] {"http://localhost:8080"}, "Auth"));
+
+            if (!(await readOnlyRepo.Any<Role>(null)))
+            {
+                await repo.Add(new Role {Name = "Customer"});
+            }
+
             var users = Enumerable.Range(1, 100).Select(f => new User
             {
                 Email = $"Test{f}@gmail.com",

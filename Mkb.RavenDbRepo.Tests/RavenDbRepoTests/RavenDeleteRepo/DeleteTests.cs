@@ -5,22 +5,23 @@ using Raven.TestDriver;
 using Shouldly;
 using Xunit;
 
-namespace Mkb.RavenDbRepo.Tests.RavenDbRepoTests.RavenDeleteRepoAsync
+namespace Mkb.RavenDbRepo.Tests.RavenDbRepoTests.RavenDeleteRepo
 {
-    public class HardDeleteTests : RavenTestDriver
+    public class DeleteTests : RavenTestDriver
     {
         [Fact]
-        public async Task Ensure_we_can_HardDelete_a_item()
+        public async Task Ensure_we_can_Delete_a_item()
         {
             var store = GetDocumentStore();
             var entity = await store.CreateEntity();
 
             IRavenDeleteRepo<Entity> repo = RavenRepoFactory.Build<Entity>(store);
-             repo.HardDelete(entity);
+             repo.Delete(entity);
 
             var item = await store.GetAll<Entity>();
 
-            item.Length.ShouldBe(0);
+            item.Length.ShouldBe(1);
+            item[0].DeletedAt.ShouldNotBeNull();
         }
     }
 }

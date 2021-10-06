@@ -29,6 +29,16 @@ namespace Mkb.RavenDbRepo.Sync.Repo
             Store = documentStore.Initialize();
         }
 
+        public bool Any<TEntity>(Expression<Func<TEntity, bool>> @where, bool includeSoftDelete = false) where TEntity : T
+        {
+            return GenericGetQuery(Store,
+                action:  f =>  f.Any(),
+                @where: where,
+                orderBy: null,
+                orderByDescending: false,
+                returnDeleted: includeSoftDelete);
+        }
+
         public TEntity Get<TEntity>(Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, object>> orderBy = null, bool orderByDescending = false, bool includeSoftDelete = false) where TEntity : T
         {
