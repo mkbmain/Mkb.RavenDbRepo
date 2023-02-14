@@ -4,7 +4,7 @@
         <Title>Mkb.RavenDbRepo</Title>
         <Authors>Mkb</Authors>
         <PackageProjectUrl>https://github.com/mkbmain/Mkb.RavenDbRepo</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/mkbmain/Mkb.RavenDbRepo/tree/V2.0.0</RepositoryUrl>
+        <RepositoryUrl>https://github.com/mkbmain/Mkb.RavenDbRepo/tree/V2.1.0</RepositoryUrl>
         <Description>Raven Db Repository both normal and async versions</Description>
         <TargetFrameworks>net6.0;netstandard2.0;netstandard2.1</TargetFrameworks>
         <PackageVersion>2.1.0</PackageVersion>
